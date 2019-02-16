@@ -1,0 +1,23 @@
+{
+  "name": "Word-Guess",
+  "version": "1.0.0",
+  "description": "Word Constructor Game",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mshuster4/Word-Guess.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mshuster4/Word-Guess/issues"
+  },
+  "homepage": "https://github.com/mshuster4/Word-Guess#readme",
+  "dependencies": {
+    "input": "^1.0.1"
+  }
+}
