@@ -16,8 +16,10 @@ var Word = function(word) {
     
     this.checkWord = function() {
         for (var i = 0; i < this.lettersArr.length; i++) {
-            this.lettersArr[i].toString();
+           this.lettersArr[i].toString();
         }
+
+        console.log(this.lettersArr.join(" "));
 
     };
 
@@ -31,11 +33,15 @@ var Word = function(word) {
 
 };
 
-var guess = "m"
+/*
+var guess = "e"
 var testWord = new Word("game");
 testWord.buildWord(testWord);
 testWord.wordGuess(guess);
 testWord.checkWord();
+*/
+
+module.exports = Word
 
 
 
