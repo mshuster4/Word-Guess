@@ -21,8 +21,11 @@ var Word = function(word) {
 
         console.log(this.lettersArr.join(" "));
 
+<<<<<<< HEAD
         return this.lettersArr.join(" ");
 
+=======
+>>>>>>> a093d089ff80efd3f5141a4fccf8705fc8b27add
     };
 
     this.wordGuess = function(guess) {
@@ -35,6 +38,17 @@ var Word = function(word) {
 
 };
 
+<<<<<<< HEAD
+=======
+/*
+var guess = "e"
+var testWord = new Word("game");
+testWord.buildWord(testWord);
+testWord.wordGuess(guess);
+testWord.checkWord();
+*/
+
+>>>>>>> a093d089ff80efd3f5141a4fccf8705fc8b27add
 module.exports = Word
 
 
