@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/mshuster4/Word-Guess#readme",
   "dependencies": {
-    "input": "^1.0.1"
+    "input": "^1.0.1",
+    "inquirer": "^6.2.2"
   }
 }
