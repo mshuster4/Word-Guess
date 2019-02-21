@@ -28,6 +28,8 @@ function selectWord() {
     gameWord.buildWord(gameWord);
     gameWord.checkWord();
 
+}
+
 
 function guessWord() {
 
@@ -52,6 +54,7 @@ function guessWord() {
                     
                 }
 
+
                 else  {
 
                     console.log("CORRECT!");
@@ -59,8 +62,8 @@ function guessWord() {
                 }
 
 
-            guessWord();
-            
+                guessWord();
+                
 
         });
 
@@ -73,7 +76,7 @@ function guessWord() {
     }
 
 
-};
+}
 
 function resetGame() {
 
