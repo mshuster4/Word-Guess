@@ -14,6 +14,7 @@ var randomWord;
 var gameWord;
 var guess;
 
+var hasWon = false; 
 
 var alreadyGuessed = [];
 
@@ -22,6 +23,26 @@ var guessesLeft = 10;
 function startGame() {
 
     console.log("Welcome to Word Guess!");
+    inquirer.prompt([
+        {
+            type: "confrim",
+            name: "startGame",
+            message: "Would you like to play? Press Y or N"
+        }
+    ])
+    .then(function(answer){
+        choice = answer.startGame
+
+        if (choice == "Y") {
+            selectWord();
+        }
+
+        else {
+            console.log("Come back when you're ready to play");
+        }
+
+    });
+
 
 }
 
@@ -63,23 +84,30 @@ function changeNumOfSlots(letter) {
     return frequency;
 }
 
+function hasWonYet(number) {
 
-function selectWord() {
-    
-    randomWord = wordsArr[Math.floor(Math.random() * wordsArr.length)];
-    gameWord = new Word(randomWord);
-    gameWord.buildWord(gameWord);
-    gameWord.checkWord();
-    numOfSlots = getNumOfSlots();
-    console.log(numOfSlots);
+    if (numOfSlots <= 0) {
+
+        hasWon = true 
+        return hasWon 
+
+    }
+
+    else {
+        hasWon = false
+        return hasWon 
+    }
+
 
 }
 
-
-
 function guessWord() {
 
-    if (guessesLeft > 0) {
+    if (hasWonYet(numOfSlots) == true) {
+        win(); 
+    }
+
+    else if (guessesLeft > 0 && hasWon == false) {
 
         inquirer.prompt([
             {
@@ -107,13 +135,8 @@ function guessWord() {
 
                     console.log("CORRECT!");
                     numOfSlots = numOfSlots - changeNumOfSlots(guess);
+                    hasWonYet(numOfSlots);
 
-                    if (numOfSlots == 0) {
-
-                        win();
-
-                    }
-           
                 }
 
             console.log(numOfSlots);
@@ -126,30 +149,75 @@ function guessWord() {
 
   else {
 
-    endGame();
+    loss();
 
   }
 
 
 }
 
+function selectWord() {
+    
+    randomWord = wordsArr[Math.floor(Math.random() * wordsArr.length)];
+    gameWord = new Word(randomWord);
+    gameWord.buildWord(gameWord);
+    gameWord.checkWord();
+    numOfSlots = getNumOfSlots();
+    console.log(numOfSlots);
+    guessWord();
+
+}
+
 function win() {
 
     console.log("You Win!");
+    inquirer.prompt([
+        {
+            type: "confrim",
+            name: "playAgain",
+            message: "Would you like to play again? Press Y or N"
+        }
+    ])
+    .then(function(answer){
+        choice = answer.startGame
+
+        if (choice == "Y") {
+            selectWord();
+        }
+
+        else {
+            console.log("Come back when you're ready to play again.");
+        }
+
+    });
 
 }
 
-
-function endGame() {
+function loss() {
 
     console.log("Game Over");
-    
+    inquirer.prompt([
+        {
+            type: "confrim",
+            name: "playAgain",
+            message: "Would you like to play again? Press Y or N"
+        }
+    ])
+    .then(function(answer){
+        choice = answer.startGame
+
+        if (choice == "Y") {
+            selectWord();
+        }
+
+        else {
+            console.log("Come back when you're ready to play again.");
+        }
+    });
 }
 
-
 startGame();
-selectWord();
 
 
-guessWord();
+
 
