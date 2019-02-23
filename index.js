@@ -4,17 +4,31 @@ var Word = require("./word.js");
 var inquirer = require('inquirer');
 
 var wordsArr=[
-    "akita",
-    "border collie",
-    "belgian malinois",
-    "poodle"
+    "Austria",
+    "Brazil",
+    "Cambodia",
+    "Ethiopia",
+    "South Korea",
+    "Krygyzstan",
+    "Malaysia",
+    "Belgium",
+    "Slovenia",
+    "Zimbabwe",
+    "Vietnam",
+    "United States of America",
+    "Ukraine",
+    "Turkey",
+    "Sri Lanka",
+    "Russia",
+    "Portugal",
+    "New Zealand",
+    "Czech Republic",
+    "Azerbaijan"
 ];
 
 var randomWord;
 var gameWord;
 var guess;
-
-var hasWon = false; 
 
 var alreadyGuessed = [];
 
@@ -22,18 +36,18 @@ var guessesLeft = 10;
 
 function startGame() {
 
-    console.log("Welcome to Word Guess!");
+    console.log("**WORLD COUNTRIES WORD GUESS**\n\n");
     inquirer.prompt([
         {
             type: "confrim",
             name: "startGame",
-            message: "Would you like to play? Press Y or N"
+            message: "Would you like to play? (Y/N)"
         }
     ])
     .then(function(answer){
         choice = answer.startGame
 
-        if (choice == "Y") {
+        if (choice == "Y" || choice == "y") {
             selectWord();
         }
 
@@ -43,6 +57,17 @@ function startGame() {
 
     });
 
+
+}
+
+function selectWord() {
+    
+    randomWord = wordsArr[Math.floor(Math.random() * wordsArr.length)];
+    gameWord = new Word(randomWord);
+    gameWord.buildWord(gameWord);
+    gameWord.checkWord();
+    numOfSlots = getNumOfSlots();
+    guessWord();
 
 }
 
@@ -67,12 +92,12 @@ function getNumOfSlots() {
 
 
 
-function changeNumOfSlots(letter) {
+function changeNumOfSlots(guess) {
 
-    var frequency = 0
+    var frequency = 0;
 
     for (var j = 0; j < randomWord.length; j++) {
-        if (randomWord.charAt(j) === guess) {
+        if (randomWord.charAt(j).toUpperCase() === guess) {
 
             frequency++;
 
@@ -80,26 +105,25 @@ function changeNumOfSlots(letter) {
 
     }
 
-    console.log(frequency);
     return frequency;
+
 }
 
 function hasWonYet(number) {
 
-    if (numOfSlots <= 0) {
+    if (number <= 0) {
 
-        hasWon = true 
-        return hasWon 
-
+        console.log("counter: " + number + true);
+        return true 
     }
 
     else {
-        hasWon = false
-        return hasWon 
+
+        console.log("counter: " + number + false);
+        return false
     }
-
-
 }
+
 
 function guessWord() {
 
@@ -107,39 +131,40 @@ function guessWord() {
         win(); 
     }
 
-    else if (guessesLeft > 0 && hasWon == false) {
+    else if (guessesLeft > 0 && hasWonYet(numOfSlots) == false) {
 
         inquirer.prompt([
             {
                 name: "guess",
-                message: "what is your guess?"
+                message: "What is your guess?"
             }
 
         ]).then(function(answer) {
             
-                guess = answer.guess;
-                alreadyGuessed.push(guess);
+                guess = answer.guess.toUpperCase();
                 gameWord.wordGuess(guess);
                 gameWord.checkWord();
 
+                if (randomWord.toUpperCase().indexOf(guess) > -1 && alreadyGuessed.indexOf(guess) === -1) {
 
-                if (randomWord.toUpperCase().indexOf(guess.toUpperCase()) === -1) {
-
-                    guessesLeft--;
-                    console.log("INCORRECT! You have: " + guessesLeft + " guesses Left");
-                    
-                }
-
-
-                else  {
-
-                    console.log("CORRECT!");
+                    console.log("CORRECT!\n\n");
+                    alreadyGuessed.push(guess);
+                    console.log(alreadyGuessed);
                     numOfSlots = numOfSlots - changeNumOfSlots(guess);
+                    console.log("num of Slots: " + numOfSlots + "Slots subtracted: " + changeNumOfSlots(guess));
                     hasWonYet(numOfSlots);
 
                 }
 
-            console.log(numOfSlots);
+
+                else if (randomWord.toUpperCase().indexOf(guess) === -1) {
+
+                    guessesLeft--;
+                    console.log("INCORRECT! You have: " + guessesLeft + " guesses Left\n\n");
+                    
+                }
+
+
             guessWord();
             
 
@@ -156,30 +181,18 @@ function guessWord() {
 
 }
 
-function selectWord() {
-    
-    randomWord = wordsArr[Math.floor(Math.random() * wordsArr.length)];
-    gameWord = new Word(randomWord);
-    gameWord.buildWord(gameWord);
-    gameWord.checkWord();
-    numOfSlots = getNumOfSlots();
-    console.log(numOfSlots);
-    guessWord();
-
-}
-
 function win() {
 
-    console.log("You Win!");
+    console.log("YOU WIN!\n\n");
     inquirer.prompt([
         {
             type: "confrim",
             name: "playAgain",
-            message: "Would you like to play again? Press Y or N"
+            message: "Would you like to play again (Y/N)?"
         }
     ])
     .then(function(answer){
-        choice = answer.startGame
+        choice = answer.playAgain;
 
         if (choice == "Y") {
             selectWord();
@@ -195,18 +208,18 @@ function win() {
 
 function loss() {
 
-    console.log("Game Over");
+    console.log("GAME OVER!\n\n");
     inquirer.prompt([
         {
-            type: "confrim",
+            type: "confirm",
             name: "playAgain",
-            message: "Would you like to play again? Press Y or N"
+            message: "Would you like to play again (Y/N)?"
         }
     ])
     .then(function(answer){
         choice = answer.startGame
 
-        if (choice == "Y") {
+        if (choice === "Y" || choice === "y") {
             selectWord();
         }
 
