@@ -11,9 +11,9 @@ The objective of this game is to guess the letters of a country's name.  Only te
 ## Functionality Examples
 ### General Game Flow
 ![Gif of Spotify No Arg](https://raw.githubusercontent.com/mshuster4/Word-Guess/master/images/app-flow.gif)
-## Game Win Scenario
+### Game Win Scenario
 ![Gif of Spotify No Arg](https://raw.githubusercontent.com/mshuster4/Word-Guess/master/images/win.gif)
-## Game Loss Scenario
+### Game Loss Scenario
 ![Gif of Spotify No Arg](https://raw.githubusercontent.com/mshuster4/Word-Guess/master/images/loss.gif)
 
 ## Technologies Use 
