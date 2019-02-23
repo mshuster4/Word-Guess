@@ -36,10 +36,11 @@ var guessesLeft = 10;
 
 function startGame() {
 
-    console.log("**WORLD COUNTRIES WORD GUESS**\n\n");
+    console.log("-----------------------------------\n")
+    console.log("**WORLD COUNTRIES WORD GUESS**\n");
+    console.log("-----------------------------------\n")
     inquirer.prompt([
         {
-            type: "confrim",
             name: "startGame",
             message: "Would you like to play? (Y/N)"
         }
@@ -52,6 +53,7 @@ function startGame() {
         }
 
         else {
+            console.log("\n");
             console.log("Come back when you're ready to play");
         }
 
@@ -64,6 +66,7 @@ function selectWord() {
     
     randomWord = wordsArr[Math.floor(Math.random() * wordsArr.length)];
     gameWord = new Word(randomWord);
+    console.log("\n\n")
     gameWord.buildWord(gameWord);
     gameWord.checkWord();
     numOfSlots = getNumOfSlots();
@@ -113,13 +116,11 @@ function hasWonYet(number) {
 
     if (number <= 0) {
 
-        console.log("counter: " + number + true);
         return true 
     }
 
     else {
 
-        console.log("counter: " + number + false);
         return false
     }
 }
@@ -132,6 +133,8 @@ function guessWord() {
     }
 
     else if (guessesLeft > 0 && hasWonYet(numOfSlots) == false) {
+        
+        console.log("\n\n");
 
         inquirer.prompt([
             {
@@ -140,18 +143,20 @@ function guessWord() {
             }
 
         ]).then(function(answer) {
-            
+
+                console.log("\n\n"); 
+
                 guess = answer.guess.toUpperCase();
                 gameWord.wordGuess(guess);
                 gameWord.checkWord();
 
+                console.log("\n\n");
+
                 if (randomWord.toUpperCase().indexOf(guess) > -1 && alreadyGuessed.indexOf(guess) === -1) {
 
-                    console.log("CORRECT!\n\n");
+                    console.log("CORRECT!");
                     alreadyGuessed.push(guess);
-                    console.log(alreadyGuessed);
-                    numOfSlots = numOfSlots - changeNumOfSlots(guess);
-                    console.log("num of Slots: " + numOfSlots + "Slots subtracted: " + changeNumOfSlots(guess));
+                    numOfSlots = numOfSlots - changeNumOfSlots(guess);;
                     hasWonYet(numOfSlots);
 
                 }
@@ -160,7 +165,7 @@ function guessWord() {
                 else if (randomWord.toUpperCase().indexOf(guess) === -1) {
 
                     guessesLeft--;
-                    console.log("INCORRECT! You have: " + guessesLeft + " guesses Left\n\n");
+                    console.log("INCORRECT! You have: " + guessesLeft + " guesses Left");
                     
                 }
 
@@ -182,11 +187,12 @@ function guessWord() {
 }
 
 function win() {
-
-    console.log("YOU WIN!\n\n");
+    console.log("\n")
+    console.log("********\n");
+    console.log("YOU WIN!\n");
+    console.log("********\n");
     inquirer.prompt([
         {
-            type: "confrim",
             name: "playAgain",
             message: "Would you like to play again (Y/N)?"
         }
@@ -194,11 +200,14 @@ function win() {
     .then(function(answer){
         choice = answer.playAgain;
 
-        if (choice == "Y") {
+        if (choice === "Y" || choice === "y") {
+            guesseLeft = 10;
+            alreadyGuessed = []; 
             selectWord();
         }
 
         else {
+            console.log("\n");
             console.log("Come back when you're ready to play again.");
         }
 
@@ -207,23 +216,27 @@ function win() {
 }
 
 function loss() {
-
-    console.log("GAME OVER!\n\n");
+    console.log("\n")
+    console.log("**********\n");
+    console.log("GAME OVER!\n");
+    console.log("**********\n");
     inquirer.prompt([
         {
-            type: "confirm",
             name: "playAgain",
             message: "Would you like to play again (Y/N)?"
         }
     ])
     .then(function(answer){
-        choice = answer.startGame
+        choice = answer.playAgain;
 
         if (choice === "Y" || choice === "y") {
+            guessesLeft = 10;
+            alreadyGuessed = [];
             selectWord();
         }
 
         else {
+            console.log("\n")
             console.log("Come back when you're ready to play again.");
         }
     });
