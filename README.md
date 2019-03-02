@@ -16,7 +16,7 @@ The objective of this game is to guess the letters of a country's name.  Only te
 ### Game Loss Scenario
 ![Gif of Spotify No Arg](https://raw.githubusercontent.com/mshuster4/Word-Guess/master/images/loss.gif)
 
-## Technologies Use 
+## Technologies Used
 
 * javascript
 * node.js
